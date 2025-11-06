@@ -22,4 +22,30 @@ export const registerValidator = [
     .withMessage('Password must be at least 6 characters'),
 ];
 
+export const loginValidator = [
+  body('username')
+    .trim()
+    .notEmpty()
+    .withMessage('Username is required'),
+  body('password')
+    .notEmpty()
+    .withMessage('Password is required'),
+];
 
+export const taskValidator = [
+  body('title')
+    .trim()
+    .notEmpty()
+    .withMessage('Title is required')
+    .isLength({ min: 3, max: 200 })
+    .withMessage('Title must be between 3 and 200 characters'),
+  body('description').optional().trim(),
+  body('status')
+    .optional()
+    .isIn(['To Do', 'In Progress', 'Done'])
+    .withMessage('Status must be To Do, In Progress, or Done'),
+  body('deadline')
+    .optional()
+    .isISO8601()
+    .withMessage('Deadline must be a valid date'),
+];
