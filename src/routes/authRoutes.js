@@ -104,6 +104,36 @@ router.post('/register', registerValidator, register);
  */
 router.post('/login', loginValidator, login);
 
-
+/**
+ * @openapi
+ * /api/auth/profile:
+ *   get:
+ *     tags: [Auth]
+ *     summary: Get user profile
+ *     description: Mendapatkan data profil user yang sedang login (diperlukan Bearer Token).
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User profile retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success: { type: boolean, example: true }
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     user:
+ *                       type: object
+ *                       properties:
+ *                         user_id: { type: integer, example: 1 }
+ *                         name: { type: string, example: Ian Roery }
+ *                         username: { type: string, example: ianroery }
+ *       401:
+ *         description: Unauthorized
+ */
+router.get('/profile', protect, getProfile);
 
 export default router;
